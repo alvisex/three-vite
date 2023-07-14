@@ -1,0 +1,26 @@
+{
+  "name": "three-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.26",
+    "tailwindcss": "^3.3.3",
+    "three": "^0.154.0",
+    "vite": "^4.4.0"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.12.2"
+  },
+  "description": "a demo sanbox with three.js GSAP and vite",
+  "main": "main.js",
+  "author": "",
+  "license": "ISC"
+}
