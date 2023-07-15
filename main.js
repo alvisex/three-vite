@@ -3,11 +3,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-const loader = new GLTFLoader();
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
+const loader = new GLTFLoader();
 
 // Debug
 const gui = new dat.GUI()
@@ -18,7 +18,7 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-// const tl = gsap.timeline({ yoyo: true })
+const tl = gsap.timeline({ defaults: { duration: 1.5, ease: 'power1' } },)
 
 // demo
 // Load a glTF resource
@@ -27,7 +27,6 @@ loader.load(
   'caja.gltf',
   // called when the resource is loaded
   (gltf) => {
-
     scene.add(gltf.scene);
 
     gltf.animations; // Array<THREE.AnimationClip>
@@ -49,8 +48,15 @@ loader.load(
       //markers: true
     }
 
+    const min = 0.6
+    const rescale = { x: min, y: min, z: min }
+    //tl.to(gltf.scene.position, { x: -2.5, })
+    tl.to(gltf.scene.scale, { ...rescale }, '<')
 
-    gsap.to(gltf.scene.scale, {
+    tl.play()
+
+
+    gsap.to(gltf.scene.rotation, {
       x: 0.8, y: 0.8, z: 0.8,
       ease: "none",
       scrollTrigger: {
@@ -59,8 +65,8 @@ loader.load(
       }
     })
 
-    gsap.to(gltf.scene.rotation, {
-      y: 5.7,
+    gsap.to(gltf.scene.position, {
+      x: -2.5,
       ease: "none",
       scrollTrigger: {
         trigger: "#demo-2",
@@ -69,7 +75,7 @@ loader.load(
     })
 
     gsap.to(gltf.scene.position, {
-      x: 2,
+      x: 3,
       ease: "none",
       scrollTrigger: {
         trigger: "#demo-3",
