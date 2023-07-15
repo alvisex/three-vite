@@ -1,8 +1,8 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Pane } from 'tweakpane'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
@@ -10,7 +10,10 @@ gsap.registerPlugin(ScrollTrigger)
 const loader = new GLTFLoader();
 
 // Debug
-const gui = new dat.GUI()
+const gui = new Pane();
+const guiPosition = gui.addFolder({ title: 'Scene position' })
+const guiRotation = gui.addFolder({ title: 'Scene rotation' })
+const guiPointLight = gui.addFolder({ title: 'pointLight' })
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -34,12 +37,24 @@ loader.load(
     gltf.scenes; // Array<THREE.Group>
     gltf.cameras; // Array<THREE.Camera>
     gltf.asset; // Object
+    console.log('gltf.scene', gltf.scene)
+    console.log('pointLight', pointLight)
 
     /* gui.add(gltf.scene.rotation, 'x').min(0).max(9)
     gui.add(gltf.scene.rotation, 'y').min(0).max(9)
     gui.add(gltf.scene.position, 'z').min(0).max(9)
     gui.add(gltf.scene.scale, 'y').min(1).max(4)
     gui.add(gltf.scene.position, 'x').min(1).max(4) */
+    guiPosition.addInput(gltf.scene.position, 'x', { min: -5, max: 5, step: 0.1 })
+    guiPosition.addInput(gltf.scene.position, 'y', { min: -5, max: 5, step: 0.1 })
+    guiPosition.addInput(gltf.scene.position, 'z', { min: -5, max: 5, step: 0.1 })
+    guiRotation.addInput(gltf.scene.rotation, 'x', { min: -7, max: 7, step: 0.1 })
+    guiRotation.addInput(gltf.scene.rotation, 'y', { min: -7, max: 7, step: 0.1 })
+    guiRotation.addInput(gltf.scene.rotation, 'z', { min: -7, max: 7, step: 0.1 })
+    guiPointLight.addInput(pointLight.position, 'x', { min: -7, max: 7, step: 0.1 })
+    guiPointLight.addInput(pointLight.position, 'y', { min: -7, max: 7, step: 0.1 })
+    guiPointLight.addInput(pointLight.position, 'z', { min: -7, max: 7, step: 0.1 })
+    guiPointLight.addInput(pointLight, 'intensity', { min: 0, max: 1, step: 0.1, label: 'intensity' })
 
     const common = {
       start: "top center",

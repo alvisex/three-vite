@@ -16,8 +16,8 @@
     "vite": "^4.4.0"
   },
   "dependencies": {
-    "dat.gui": "^0.7.9",
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.2",
+    "tweakpane": "^3.1.10"
   },
   "description": "a demo sanbox with three.js GSAP and vite",
   "main": "main.js",
